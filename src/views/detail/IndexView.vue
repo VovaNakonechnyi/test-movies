@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
+import { storeToRefs } from 'pinia'
 
 import BaseCard from '@/components/shared/BaseCard.vue'
 import BaseError from '@/components/shared/BaseError.vue'
@@ -13,9 +14,14 @@ const props = withDefaults(defineProps<Props>(), {
   id: ''
 })
 
-const { fetchOMDBItem } = useOMDBStore()
+const storeOmdb = useOMDBStore()
+const reactiveStoreOmdb = storeToRefs(storeOmdb)
+
+const item = reactiveStoreOmdb.getDestructuringOMDBItem
+
+const fetchOMDBItem = storeOmdb.fetchOMDBItem
 const loading = ref(true)
-const item = await fetchOMDBItem(props.id)
+await fetchOMDBItem(props.id)
 loading.value = false
 </script>
 

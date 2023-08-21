@@ -38,7 +38,7 @@ export const useOMDBStore = defineStore('omdb', {
     async fetchOMDBItem(title: string) {
       const res = await apiOMDBItem(title)
       this.omdbItem = res
-      return this.getDestructuringOMDBItem
+      return res
     },
     addCreatedMovie(movie: CreatedOMDBItem) {
       this.omdbCreated.push(movie)
